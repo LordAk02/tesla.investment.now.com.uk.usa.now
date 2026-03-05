@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tesla Investment</title>
+  <style>
+    :root{
+      --bg:#020617;--panel:#0b1220;--card:#0f172a;--accent:#38bdf8;--ok:#22c55e;--warn:#f59e0b;
+    }
+.hero{
+  height:95vh;
+  background:url('ff11.jpg') center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.hero-overlay{
+  background:rgba(0,0,0,0.6);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+}
+.hero h1{
+  font-size:3rem;
+  margin-bottom:10px;
+}
+.hero-buttons{
+  margin-top:20px;
+  display:flex;
+  gap:15px;
+  justify-content:center;
+}
+nav button.active::after{
+  content:" ✔";
+}
+.crypto-price{
+  display:flex;
+  justify-content:space-between;
+  margin-top:6px;
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+    .sub{opacity:.8;font-size:.85rem}
+    .stats{margin-top:8px;font-size:.9rem}
+    body{margin:0;font-family:Inter,system-ui;background:linear-gradient(135deg,#020617,#0f172a);color:#e5e7eb}
+    header{position:sticky;top:0;background:rgba(2,6,23,.9);backdrop-filter:blur(8px);padding:16px}
+    nav button{margin:4px;border:none;padding:10px 14px;border-radius:999px;background:#1e293b;color:#e5e7eb;cursor:pointer}
+    nav button.active{background:var(--accent);color:#082f49}
+    main{max-width:1200px;margin:auto;padding:20px}
+    .page{display:none}
+    .page.active{display:block}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .card{background:var(--card);padding:16px;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+    input{width:100%;padding:10px;border-radius:10px;border:none;background:#020617;color:#e5e7eb}
+    .btn{border:none;border-radius:999px;padding:10px 14px;cursor:pointer}
+    .btn.buy{background:var(--accent);color:#082f49;text-underline-offset: none;}
+    .btn.ok{background:var(--ok);color:#022c22}
+    .muted{opacity:.7;font-size:.85rem}
+  </style>
+</head>
+<body>
+
+<main>
+
+  <section class="hero">
+  <div class="hero-overlay">
+    <h1>Build Long-Term Wealth Through Strategic Investments</h1>
+    <p>Invest Today so you can retire Tommorrow</p>
+    <div class="hero-buttons">
+        <button  class="btn buy" onclick="window.location.href='expppp.html'">🔐 Sign up</button>
+        <button  class="btn ok" onclick="window.location.href='expppp.html'">🔐 Log in</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  
+function signup(){
+
+  user={name:username.value,email:email.value,wallet:'0xA1B2C3D4E5F6FAKEWALLET'};
+  localStorage.setItem('user',JSON.stringify(user));
+  document.getElementById('welcome').innerText='Welcome, '+user.name;
+  show('invest');
+}
+
+function payPlan(name,min,max){
+  const random=Math.floor(Math.random()*(max-min)+min);
+  selectedItem={type:'Plan',name,amount:random};
+  document.getElementById('payInfo').innerText=`User: ${user.name} | Selected ${name} Plan | Random Amount: $${random}`;
+  show('payment');
+}
+function load(){
+  const u=localStorage.getItem('user');
+  if(u){user=JSON.parse(u);welcome.innerText='Welcome, '+user.name;show('invest')}
+  const a=localStorage.getItem('assets');
+  if(a) cart=JSON.parse(a);
+  renderAssets();
+}
+
+function renderAssets(){
+  const list=document.getElementById('assetList');
+  list.innerHTML=cart.length?cart.map(i=>`<p>✅ ${i.type}: ${i.name} — $${i.finalAmount}</p>`).join(''):'<p class="muted">No assets yet.</p>';
+  if(user){
+    profileInfo.innerText=`Username: ${user.name}\nEmail: ${user.email}\nWallet: ${user.wallet}`;
+  }
+}
+
+function resetGame(){
+  localStorage.clear();
+  location.reload();
+}
+function render(){
+    statsEl.textContent=`💰 ${fmt(state.cash)} | ⚡ ${fmt(state.income)}/sec | ✨ Prestige ${state.prestige} (x${state.multiplier.toFixed(2)})`;
+    document.getElementById('w-btc').textContent=state.wallets.btc+' BTC';
+    document.getElementById('w-doge').textContent=state.wallets.doge+' DOGE';
+    document.getElementById('w-eth').textContent=state.wallets.eth+' ETH';
+    sumEl.textContent=`Autosaved. Cart items: ${state.cart.length}. Exposure drives income.`;
+    document.getElementById('prestigeInfo').textContent=`Current multiplier x${state.multiplier.toFixed(2)}.`;
+    renderCart();
+  }
+function tick(){
+    fluctuate();
+    const exposureValue= state.exposure.tsla*state.prices.tsla + state.exposure.btc*(state.prices.btc/1000) + state.exposure.doge*(state.prices.doge*1000) + state.exposure.spacex*(state.prices.spacex/10);
+    state.income = exposureValue*state.multiplier*1e6;
+    state.cash += state.income;
+    state.history.push(state.cash); if(state.history.length>120) state.history.shift();
+    draw(); render(); save();
+  }
+
+load();
+</script>
+</body>
+</html>

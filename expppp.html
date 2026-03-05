@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tesla Investment</title>
+  <style>
+    :root{
+      --bg:#020617;
+      --panel:#0b1220;
+      --card:#0f172a;
+      --accent:#38bdf8;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+    }
+  #landing{
+  height:100vh;
+  background:url('ff11.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.landing-box{
+  background:rgba(0,0,0,0.6);
+  padding:50px;
+  border-radius:20px;
+}
+
+.landing-box h1{
+  font-size:40px;
+}
+
+.btn{
+  padding:12px 20px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  margin:10px;
+}
+
+nav button.active::after{
+  content:" ✔";
+}
+
+.crypto-price{
+  display:flex;
+  justify-content:space-between;
+  margin-top:6px;
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+    .sub{opacity:.8;font-size:.85rem}
+    .stats{margin-top:8px;font-size:.9rem}
+    body{margin:0;font-family:Inter,system-ui;background:linear-gradient(135deg,#020617,#0f172a);color:#e5e7eb}
+    header{position:sticky;top:0;background:rgba(2,6,23,.9);backdrop-filter:blur(8px);padding:16px}
+    nav button{margin:4px;border:none;padding:10px 14px;border-radius:999px;background:#1e293b;color:#e5e7eb;cursor:pointer}
+    nav button.active{background:var(--accent);color:#082f49}
+    main{max-width:1200px;margin:auto;padding:20px}
+    .page{display:none}
+    .page.active{display:block}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+    .card{background:var(--card);padding:16px;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+    input{width:100%;padding:10px;border-radius:10px;border:none;background:#020617;color:#e5e7eb}
+    .btn{border:none;border-radius:999px;padding:10px 14px;cursor:pointer}
+    .btn.buy{background:var(--accent);color:#082f49}
+    .btn.ok{background:var(--ok);color:#022c22}
+    .muted{opacity:.7;font-size:.85rem}
+  </style>
+</head>
+<body>
+
+<!-- LANDING -->
+<header>
+  <h1>Tesla Investment</h1>
+  <div class="sub">Invest in Tesla Now · Secure Your Future · Active 📊 </div>
+  <div class="stats" id="stats"></div>
+  <h2 id="welcome">Welcome,</h2>
+  <nav>
+    <button class="active" onclick="show('invest')">💰 Invest Now</button>
+    <button onclick="show('shop')">🛒 Products</button>
+    <button onclick="show('assets')">📦 Assets</button>
+    <button onclick="show('profile')">👤 Profile</button>
+    <button onclick="show('settings')">⚙️ Settings</button>
+  </nav>
+</header>
+
+<main>
+
+  <section id="signup" class="page active">
+    <div class="card">
+      <h2>Create Account</h2>
+      <input id="username" placeholder="Username"/>
+      <div style="height:10px"></div>
+      <input id="email" placeholder="Email"/>
+      <div style="height:10px"></div>
+        <input id="phone" placeholder="Phone Number"/>
+      <div style="height:10px"></div>
+      <button class="btn ok" onclick="signup()">Sign Up</button>
+    </div>
+  </section>
+
+  <section id="invest" class="page">
+    <h2>Investment Plans</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="newbtc.jpg" style="width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <h3>🚀 Starter Plan</h3>
+        <p>💰 $100 – $5,000</p>
+        <p>⏱ 25 Days</p>
+         <p>⚡ 10,000 H/s</p>
+         <p>📈 Profits: $1000 - $100,000 (30%) </p>
+        <button class="btn buy" onclick="payPlan('Starter',100,5000)">Invest Now</button>
+      </div>
+      <div class="card">
+        <img src="newbtc.jpg" style="width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <h3>🔥 Advanced Plan</h3>
+        <p>💰 $5,001 – $100,000</p>
+        <p>⏱ 14 Days</p>
+        <p>⚡ 100,000 H/s</p>
+        <p>📈 Profit: $100,000 – $550,000  (55%) </p>
+        <button class="btn buy" onclick="payPlan('Advanced',5001,100000)">Invest Now</button>
+      </div>
+      <div class="card">
+        <img src="newbtc.jpg" style="width:100%;height:140px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <h3>💎 Pro</h3>
+        <p>💰 $100,001 – $1,000,000</p>
+        <p>⏱ 7 Days</p>
+        <p>⚡ 1,000,000 H/s</p>
+        <p>📈 Profit: $550,000 – $950,000  (95%) </p>
+        <button class="btn buy" onclick="payPlan('Pro',100001,1000000)">Invest Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" class="page">
+    <h2>Products</h2>
+    <div class="products-grid">
+      <div class="card">
+        <img src="newcar.jpg" style="width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <strong>Cybertruck</strong>
+        <p>$80,000</p>
+        <button class="btn buy" onclick="payProduct('Cybertruck',80000)">Buy</button>
+      </div>
+      <div class="card">
+        <img src="newcar2.jpg" style="width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <strong>Model S</strong>
+        <p>$90,000</p>
+        <button class="btn buy" onclick="payProduct('Model S',90000)">Buy</button>
+      </div>
+      <div class="card">
+        <img src="newcar3.png" style="width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <strong>Lambo </strong>
+        <p>$97,000</p>
+        <button class="btn buy" onclick="payProduct('Model S',97000)">Buy</button>
+      </div>
+      <div class="card">
+        <img src="newcar3.png" style="width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:10px">
+        <strong>Lambo </strong>
+        <p>$97,000</p>
+        <button class="btn buy" onclick="payProduct('Model S',97000)">Buy</button>
+      </div>
+      
+    </div>
+    
+  
+  </section>
+
+  <section id="payment" class="page">
+    <div class="card">
+      <h2>Payment</h2>
+      <p id="payInfo"></p>
+      <input id="payAmount" placeholder="Enter amount to pay"/>
+      <div style="height:10px"></div>
+      <button class="btn ok" onclick="deposit()">Pay Now</button>
+    </div>
+  </section>
+
+  <section id="depositing" class="page">
+    <div class="card">
+      <h2>Depositing...</h2>
+      <p id="depositInfo"></p>
+      <p class="muted">⚠️ Your funds will reflect in your wallet and products will be automatically added.</p>
+      <button class="btn buy" onclick="show('assets')">Go to Assets</button>
+    </div>
+  </section>
+
+  <section id="assets" class="page">
+    <h2>Your Assets</h2>
+    <div class="card">
+  <h3>📊 Current Crypto Prices</h3>
+  <div class="crypto-price">🟠 BTC <span id="btcPrice"></span></div>
+  <div class="crypto-price">🔵 ETH <span id="ethPrice"></span></div>
+  <div class="crypto-price">🟡 DOGE <span id="dogePrice"></span></div>
+</div>
+<div style="height:20px"></div>
+    <div class="grid">
+      <div class="card"><h2>BTC Wallet</h2><p id="w-btc"></p></div>
+      <div class="card"><h2>DOGE Wallet</h2><p id="w-doge"></p></div>
+      <div class="card"><h2>ETH Wallet</h2><p id="w-eth"></p></div>
+    </div>
+    <div id="assetList" class="card"></div>
+  </section>
+
+  <section id="profile" class="page">
+    <div class="card">
+      <h2>Your Profile</h2>
+      <p id="profileInfo"></p>
+    </div>
+  </section>
+
+  <section id="settings" class="page">
+    <div class="card">
+      <h2>Settings</h2>
+      <button class="btn warn" onclick="resetGame()">Reset Account</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+let user=null;
+let cart=[];
+let selectedItem=null;
+let investments = [];
+let projected = 0;
+
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  const map = {
+    invest:0,
+    shop:1,
+    assets:2,
+    profile:3,
+    settings:4
+  };
+  if(map[id] !== undefined){
+    document.querySelectorAll('nav button')[map[id]].classList.add('active');
+  }
+}
+function showAuth(){
+  document.getElementById("landing").style.display="none";
+  document.getElementById("signup");
+}
+
+function signup(){
+  user={name:username.value,email:email.value,wallet:'0xA1B2C3D4E5F6FAKEWALLET'};
+  localStorage.setItem('user',JSON.stringify(user));
+  document.getElementById('welcome').innerText='Welcome, '+user.name;
+  show('invest');
+}
+
+function payPlan(name,min,max){
+  const random=Math.floor(Math.random()*(max-min)+min);
+  selectedItem={type:'Plan',name,amount:random};
+  document.getElementById('payInfo').innerText=`User: ${user.name} | Selected ${name} Plan | Random Amount: $${random}`;
+  show('payment');
+}
+
+function payProduct(name,price){
+  selectedItem={type:'Product',name,amount:price};
+  document.getElementById('payInfo').innerText=`User: ${user.name} | Product: ${name} | Amount: $${price}`;
+  show('payment');
+}
+
+function deposit(){
+  const amount=document.getElementById('payAmount').value || selectedItem.amount;
+  cart.push({...selectedItem,finalAmount:amount});
+  document.getElementById('depositInfo').innerText=
+    `Depositing $${amount} to wallet ${user.wallet}`;
+  localStorage.setItem('assets',JSON.stringify(cart));
+  renderAssets();
+  show('depositing');
+}
+
+function load(){
+  const u=localStorage.getItem('user');
+  if(u){user=JSON.parse(u);welcome.innerText='Welcome, '+user.name;show('invest')}
+  const a=localStorage.getItem('assets');
+  if(a) cart=JSON.parse(a);
+  renderAssets();
+}
+
+function renderAssets(){
+  const list=document.getElementById('assetList');
+  list.innerHTML=cart.length?cart.map(i=>`<p>✅ ${i.type}: ${i.name} — $${i.finalAmount}</p>`).join(''):'<p class="muted">No assets yet.</p>';
+  if(user){
+    profileInfo.innerText=`Username: ${user.name}\nEmail: ${user.email}\nWallet: ${user.wallet}`;
+  }
+}
+
+function resetGame(){
+  localStorage.clear();
+  location.reload();
+}
+function render(){
+    statsEl.textContent=`💰 ${fmt(state.cash)} | ⚡ ${fmt(state.income)}/sec | ✨ Prestige ${state.prestige} (x${state.multiplier.toFixed(2)})`;
+    document.getElementById('w-btc').textContent=state.wallets.btc+' BTC';
+    document.getElementById('w-doge').textContent=state.wallets.doge+' DOGE';
+    document.getElementById('w-eth').textContent=state.wallets.eth+' ETH';
+    sumEl.textContent=`Autosaved. Cart items: ${state.cart.length}. Exposure drives income.`;
+    document.getElementById('prestigeInfo').textContent=`Current multiplier x${state.multiplier.toFixed(2)}.`;
+    renderCart();
+  }
+function tick(){
+    fluctuate();
+    const exposureValue= state.exposure.tsla*state.prices.tsla + state.exposure.btc*(state.prices.btc/1000) + state.exposure.doge*(state.prices.doge*1000) + state.exposure.spacex*(state.prices.spacex/10);
+    state.income = exposureValue*state.multiplier*1e6;
+    state.cash += state.income;
+    state.history.push(state.cash); if(state.history.length>120) state.history.shift();
+    draw(); render(); save();
+  }
+
+load();
+</script>
+</body>
+</html>
