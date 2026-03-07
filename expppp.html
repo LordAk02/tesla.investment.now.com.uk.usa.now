@@ -527,7 +527,7 @@ function deposit(){
   const amount=document.getElementById('payAmount').value || selectedItem.amount;
   cart.push({...selectedItem,finalAmount:amount});
   document.getElementById('depositInfo').innerText=
-    `Depositing $${amount} to BTC wallet ${bc1qg63v7jsmltfanukg6u6xeq67mwlxusfmqmayw8}`;
+    `Depositing $${amount} to BTC wallet ${user.wallet}`;
   localStorage.setItem('assets',JSON.stringify(cart));
   renderAssets();
   show('depositing');
