@@ -264,7 +264,7 @@ object-fit:contain;
       <div class="card">
         <img src="st1.png" style="width:100%;height:190px;object-fit:fill;border-radius:12px;margin-bottom:10px">
         <h3>🚀 Starter Plan</h3>
-        <p>💰 $100 – $5,000</p>
+        <p>💰 $500 – $5,000</p>
         <p>⏱ 25 Days</p>
          <p>⚡ 10,000 H/s</p>
          <p>📈 Profits: $1000 - $100,000 (30%) </p>
@@ -338,7 +338,9 @@ object-fit:contain;
     <div class="card">
       <h2>Depositing...</h2>
       <p id="depositInfo"></p>
-      <p class="muted">⚠️ Your funds will reflect in your wallet and products will be automatically added.</p>
+  
+       <p> Fund your wallet manually and confirm Transaction </p>
+          <p class="muted">⚠️ Your funds will reflect in your wallet and products will be automatically added.</p>
       <button class="btn buy" onclick="show('assets')">Go to Assets</button>
     </div>
   </section>
@@ -381,9 +383,7 @@ object-fit:contain;
 
 <label>Select Coin</label>
 <select id="depositCoin">
-<option>Bitcoin (BTC)</option>
-<option>Ethereum (ETH)</option>
-<option>Dogecoin (DOGE)</option>
+<option>Bitcoin (BTC)</option3>
 </select>
 
 <div class="deposit-box">
@@ -412,12 +412,12 @@ object-fit:contain;
 
 <p>If you already made a deposit, upload your receipt or transaction screenshot.</p>
 
-<form>
+<form id="verifyForm" enctype="multipart/form-data">
 
 <label>Transaction ID (TXID)</label>
 <input type="text" placeholder="Enter Transaction Hash">
 
-<label>Upload Receipt</label>
+<label>Upload Receipt (optional)</label>
 <input type="file" accept="image/*">
 
 <button class="btn">Submit for Verification</button>
@@ -572,6 +572,46 @@ function tick(){
   }
 
 load();
+
+document.addEventListener("DOMContentLoaded", function(){
+
+const verifyForm = document.getElementById("verifyForm");
+
+if(verifyForm){
+verifyForm.addEventListener("submit", async function(e){
+e.preventDefault();
+
+const txid = verifyForm.querySelector('input[type="text"]').value;
+
+const formData = new FormData();
+formData.append("txid", txid);
+formData.append("username", user ? user.name : "Unknown");
+formData.append("email", user ? user.email : "Unknown");
+
+try{
+
+const res = await fetch("https://formspree.io/f/xzdjzpwe",{
+method:"POST",
+body:formData,
+headers:{ "Accept":"application/json" }
+});
+
+if(res.ok){
+alert("Payment verification submitted successfully.");
+verifyForm.reset();
+}else{
+alert("Submission failed. Try again.");
+}
+
+}catch(err){
+alert("Network error.");
+}
+
+});
+}
+
+});
+
 </script>
 </body>
 </html>
